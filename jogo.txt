@@ -1,0 +1,7 @@
+2
+Bart
+Lisa
+- X O
+X O -
+- - -
+2

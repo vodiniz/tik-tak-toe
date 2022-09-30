@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 // cores e formato de texto
 #define ANSI_RESET            "\x1b[0m"  // desativa os efeitos anteriores
 #define ANSI_BOLD             "\x1b[1m"  // coloca o texto em negrito
@@ -56,19 +57,27 @@
  
 
 
+
+void clear_screen();
 void display_game_name();
-void display_instructions();
+void display_options(int gaming);
 
 
 
 
 
+
+
+
+void clear_screen(){
+    printf("\e[1;1H\e[2J");
+}
 
 
 
 void display_game_name(){
     
-    printf("\e[1;1H\e[2J");
+    clear_screen();
     printf("\n\n\n\n");
     printf(MAGENTA(BOLD("\t\t     ▄█  ▄██████▄     ▄██████▄   ▄██████▄       ████████▄     ▄████████       ▄█    █▄     ▄████████  ▄█          ▄█    █▄       ▄████████ \n")));
     printf(MAGENTA(BOLD("\t\t    ███ ███    ███   ███    ███ ███    ███      ███   ▀███   ███    ███      ███    ███   ███    ███ ███         ███    ███     ███    ███ \n")));
