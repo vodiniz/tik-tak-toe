@@ -4,6 +4,12 @@
         "source_location": "cpp",
         "game_logic.h": "c",
         "types.h": "c",
-        "util.h": "c"
+        "util.h": "c",
+        "display.h": "c",
+        "gamefiles.h": "c",
+        "stdio.h": "c",
+        "files.h": "c",
+        "defines.h": "c",
+        "structs.h": "c"
     }
 }

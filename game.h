@@ -1,22 +1,11 @@
 #include <stdio.h>
-#include "gamefiles.h"
+#include "files.h"
 #include "display.h"
 
-#define STR_SIZE 50
 
-
-
-void run_game ();
-void test_game ();
-
-
-
-
-
-
-
-
-
+void run_game();
+void test_game();
+int get_option(int gaming);
 
 
 
@@ -27,12 +16,66 @@ void test_game ();
 
 void run_game (){
 
-    int gaming = 1;
-
+    int gaming = 0;
     display_game_name();
-    display_options(gaming);
-    test_game();
+    int option;
+
+    do{
+        display_options(gaming);
+        option = get_option(gaming);
+
+        switch (option){
+            case 1:
+                //new_game
+                break;
+            case 2:
+                //load game_file
+                break;
+
+            case 3:
+                //
+                //return_game();
+            case 4: 
+                //show_ranking
+                show_ranking();
+                break;
+
+            default:
+                break;
+        }
+
+
+    } while (option);
+    
+    
+
+    
+
 }
+
+
+
+
+
+
+int get_option(int gaming){
+
+    int option;
+    scanf("%d", &option);
+
+    if (!gaming && option == 3){
+        invalid_option();
+        option = 10;
+    }
+    
+    return option;
+
+}
+
+
+
+
+
 
 void test_game (){
     Game current = {

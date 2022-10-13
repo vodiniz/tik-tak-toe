@@ -1,25 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "util.h"
+#include "structs.h"
 #define STR_SIZE 50
+#define RANKING_FILE "velha.ini"
 
-typedef struct {
-    int player_count;
-    char player1[STR_SIZE];
-    char player2[STR_SIZE];
-    char board[3][3];
-    int last_play;
-} Game;
 
 
 
 
 void save_game(Game current_game, char file_name[]);
 Game read_save(char save_name[]);
-
-
-
-
-
+void read_ranking(Person *ranking_list);
 
 
 
@@ -106,4 +98,35 @@ Game read_save(char file_name[]){
 
         return default_game;
     }
+}
+
+
+
+void read_ranking(Person *ranking_list){
+
+    if (file_exists(RANKING_FILE)){
+
+        int list_size;
+        FILE *ranking_file = fopen(RANKING_FILE, "r");
+        fscanf(ranking_file, "%d", &list_size);
+
+        ranking_list = malloc ( list_size * sizeof(Person));
+
+        for (int i = 0; i < list_size; i++){
+
+            Person new_person;
+            
+            fscanf(ranking_file, "%s", new_person.name);
+            fscanf(ranking_file, "%d", &new_person.wins);
+            fscanf(ranking_file, "%d", &new_person.draws);
+            fscanf(ranking_file, "%d", &new_person.losses);
+
+            ranking_list[i] = new_person;
+        }
+
+
+        fclose(ranking_file);
+
+    }
+
 }
