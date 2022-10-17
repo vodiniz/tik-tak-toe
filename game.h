@@ -47,13 +47,7 @@ void run_game (){
 
     } while (option);
     
-    
-
-    
-
 }
-
-
 
 
 
@@ -61,6 +55,7 @@ void run_game (){
 int get_option(int gaming){
 
     int option;
+    printf("\n\t\t\t");
     scanf("%d", &option);
 
     if (!gaming && option == 3){

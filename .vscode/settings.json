@@ -10,6 +10,7 @@
         "stdio.h": "c",
         "files.h": "c",
         "defines.h": "c",
-        "structs.h": "c"
+        "structs.h": "c",
+        "typeinfo": "c"
     }
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "util.h"
 #include "structs.h"
 #define STR_SIZE 50
@@ -11,15 +12,7 @@
 
 void save_game(Game current_game, char file_name[]);
 Game read_save(char save_name[]);
-void read_ranking(Person *ranking_list);
-
-
-
-
-
-
-
-
+Person *read_ranking(int *list_size);
 
 
 
@@ -50,6 +43,12 @@ void save_game(Game current_game, char file_name[]){
     fprintf(save_file, "%d\n", current_game.last_play);
     fclose(save_file);
 }
+
+
+
+
+
+
 
 
 Game read_save(char file_name[]){
@@ -102,31 +101,43 @@ Game read_save(char file_name[]){
 
 
 
-void read_ranking(Person *ranking_list){
+
+
+
+Person* read_ranking(int *list_size){
+
+    Person *person_list;
 
     if (file_exists(RANKING_FILE)){
 
-        int list_size;
+
         FILE *ranking_file = fopen(RANKING_FILE, "r");
-        fscanf(ranking_file, "%d", &list_size);
+        fscanf(ranking_file, "%d", list_size);
 
-        ranking_list = malloc ( list_size * sizeof(Person));
+        person_list = malloc ( *list_size * sizeof(Person));
 
-        for (int i = 0; i < list_size; i++){
+        for (int i = 0; i < *list_size; i++){
+
 
             Person new_person;
+
+            fgetc(ranking_file);
+            fgets(new_person.name, STR_SIZE, ranking_file);
             
-            fscanf(ranking_file, "%s", new_person.name);
+            int string_size = strlen(new_person.name);
+            new_person.name[string_size - 1] = '\0';
+
             fscanf(ranking_file, "%d", &new_person.wins);
             fscanf(ranking_file, "%d", &new_person.draws);
             fscanf(ranking_file, "%d", &new_person.losses);
 
-            ranking_list[i] = new_person;
+            person_list[i] = new_person;
         }
-
+        //printf("NOME = %s\n", ranking_list[4].name);
 
         fclose(ranking_file);
-
     }
+
+    return person_list;
 
 }
