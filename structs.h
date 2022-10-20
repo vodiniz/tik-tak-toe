@@ -5,8 +5,8 @@
 
 typedef struct {
     int player_count;
-    char player1[STR_SIZE];
-    char player2[STR_SIZE];
+    char player1[STR_SIZE]; // pode mudar para Person
+    char player2[STR_SIZE]; // pode mudar para Person
     char board[3][3];
     int last_play;
 } Game;

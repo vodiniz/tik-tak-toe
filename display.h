@@ -15,8 +15,8 @@ void print_table_horizontal_lines();
 void print_person_table(int n_lines, Person players[]);
 void invalid_option();
 void show_ranking();
-
-
+char *player_char_color(char letter);
+void print_game_table(Game game);
 
 
 
@@ -77,7 +77,7 @@ void print_n_times(int n, char string[]){
 
 
 void print_table_space_line(){
-    printf("\t\t\t\t\t\t\t    ");
+    printf("\t\t\t\t\t\t\t ");
     printf("%*c" RED(BOLD(TAB_VER)), 54, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 20, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 16, ' ');
@@ -116,7 +116,7 @@ void print_table_horizontal_lines(){
 
 void print_person_table(int n_lines, Person *players){
 
-    int before_str, after_string;
+    
 
     printf("%*c" RED(BOLD(TAB_VER)), 54, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 20, ' ');
@@ -206,6 +206,7 @@ void print_ranking_title(){
 
 void show_ranking(){
 
+
     if (file_exists(RANKING_FILE)){
 
         int list_size;
@@ -215,9 +216,8 @@ void show_ranking(){
 
         print_ranking_title();
 
+
         
-
-
         printf("\n\n\t\t\t\t\t\t      "BOLD(RED(TAB_VER)));
         printf(BOLD(MAGENTA("\t       NOME        ")));
         printf(BOLD(RED(TAB_VER)));
@@ -235,9 +235,7 @@ void show_ranking(){
         printf(BOLD(RED(TAB_VER)));
 
 
-
         printf("\n\t\t\t\t\t\t");
-
 
         //TAB NUMEROS
         print_n_times(6, RED(BOLD(TAB_HOR)));
@@ -263,9 +261,7 @@ void show_ranking(){
 
         printf("\n");
 
-
         print_person_table(list_size, rank_list);
-        
 
         fclose(ranking_file);
         free(rank_list);
@@ -274,3 +270,42 @@ void show_ranking(){
 
 
 }
+
+char* player_char_color(char letter){
+
+    if (letter == '-'){
+        return("   ");
+    } else if (letter == 'X'){
+        return(BLUE(" X "));
+    } else {
+        return(GREEN(" O "));
+    }
+
+    return("");
+}
+
+
+
+void print_game_table(Game game){
+
+    clear_screen();
+    printf("\n\n\n\n\n\n\n");
+    printf ("\t\t\t\t\t\t"RED(TAB_TL TAB_HOR TAB_HOR TAB_HOR TAB_TJ TAB_HOR TAB_HOR TAB_HOR TAB_TJ TAB_HOR TAB_HOR TAB_HOR TAB_TR) "\n");
+    printf ("\t\t\t\t\t\t"RED(TAB_VER)BLUE("%s") RED(TAB_VER ) BLUE("%s") RED(TAB_VER ) BLUE("%s") RED(TAB_VER) "\n",
+     player_char_color(game.board[0][0]), player_char_color(game.board[0][1]), player_char_color(game.board[0][2]));
+    
+    printf ("\t\t\t\t\t\t"RED(TAB_ML TAB_HOR TAB_HOR TAB_HOR TAB_MJ TAB_HOR TAB_HOR TAB_HOR TAB_MJ TAB_HOR TAB_HOR TAB_HOR TAB_MR) "\n");
+    printf ("\t\t\t\t\t\t"RED(TAB_VER) BLUE("%s") RED(TAB_VER ) BLUE("%s") RED(TAB_VER ) BLUE("%s") RED(TAB_VER) "\n",
+     player_char_color(game.board[1][0]), player_char_color(game.board[1][1]), player_char_color(game.board[1][2]));
+
+    printf ("\t\t\t\t\t\t"RED(TAB_ML TAB_HOR TAB_HOR TAB_HOR TAB_MJ TAB_HOR TAB_HOR TAB_HOR TAB_MJ TAB_HOR TAB_HOR TAB_HOR TAB_MR) "\n");
+    printf ("\t\t\t\t\t\t"RED(TAB_VER) BLUE("%s") RED(TAB_VER ) BLUE("%s") RED(TAB_VER ) BLUE("%s") RED(TAB_VER) "\n",
+     player_char_color(game.board[2][0]), player_char_color(game.board[2][1]), player_char_color(game.board[2][2]));
+
+    printf ("\t\t\t\t\t\t"RED(TAB_BL TAB_HOR TAB_HOR TAB_HOR TAB_BJ TAB_HOR TAB_HOR TAB_HOR TAB_BJ TAB_HOR TAB_HOR TAB_HOR TAB_BR) "\n");
+    printf ("\n");  
+    
+
+}
+
+
