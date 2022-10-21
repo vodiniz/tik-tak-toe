@@ -1,4 +1,5 @@
 #include "defines.h"
+
 #ifndef STRUCTS_H_
 #define STRUCTS_H_
 

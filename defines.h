@@ -1,3 +1,6 @@
+#ifndef DEFINE_H_
+#define DEFINE_H_
+
 // cores e formato de texto
 #define ANSI_RESET            "\x1b[0m"  // desativa os efeitos anteriores
 #define ANSI_BOLD             "\x1b[1m"  // coloca o texto em negrito
@@ -61,3 +64,8 @@
 
 
 #define STR_SIZE 50
+#define RANKING_FILE "velha.ini"
+
+
+
+#endif
