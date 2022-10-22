@@ -34,3 +34,10 @@ char* remove_new_line(char *string){
 
     return string;
 }
+
+void empty_string(char* string){
+    int str_len = strlen(string);
+    for ( int i = 0; i < str_len; i++){
+        string[i] = '\0';
+    }
+}

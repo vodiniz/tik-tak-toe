@@ -29,8 +29,6 @@ void save_game(Game current_game, char file_name[]){
 
 
 
-
-
 Game read_save(char file_name[]){
 
 

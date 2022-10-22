@@ -61,8 +61,6 @@
 
 
 
-
-
 #define STR_SIZE 50
 #define RANKING_FILE "velha.ini"
 

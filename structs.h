@@ -22,4 +22,10 @@ typedef struct {
     int draws;
 } Person;
 
+typedef struct {
+    char first_command[STR_SIZE];
+    char second_command[STR_SIZE];
+} Command;
+
+
 #endif

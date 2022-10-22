@@ -63,7 +63,7 @@ void print_n_times(int n, char string[]){
 
 void print_table_space_line(){
     printf("\t\t\t\t\t\t\t ");
-    printf("%*c" RED(BOLD(TAB_VER)), 54, ' ');
+    printf("%*c" RED(BOLD(TAB_VER)), 57, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 20, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 16, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 15, ' ');

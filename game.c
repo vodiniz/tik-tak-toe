@@ -5,6 +5,7 @@
 #include "game_logic.h"
 #include "game.h"
 #include "util.h"
+#include "structs.h"
 
 
 void run_game (){
@@ -12,6 +13,8 @@ void run_game (){
     int gaming = 0;
     display_game_name();
     int option;
+    Game current_game;
+
 
     do{
         display_options(gaming);
@@ -19,15 +22,16 @@ void run_game (){
 
         switch (option){
             case 1:
-                new_game();
+                new_game(&current_game, &gaming);
                 break;
             case 2:
-                //load game_file
                 break;
 
             case 3:
-                //
-                //return_game();
+                getchar();
+                continue_game(&current_game, &gaming);
+                break;
+
             case 4: 
                 //show_ranking
                 show_ranking();
@@ -94,7 +98,7 @@ void test_game (){
 }
 
 
-void new_game(){
+void new_game(Game *game, int *gaming){
 
     int player_number;
     char player_number_string[STR_SIZE];
@@ -113,7 +117,6 @@ void new_game(){
         player_number = 2;
     }
     
-    Game current_game;
     
     char player1_name[STR_SIZE];
     char player2_name[STR_SIZE];
@@ -125,19 +128,19 @@ void new_game(){
 
         fgets(player1_name, STR_SIZE, stdin);
 
-        while (!strcmp("\n", player1_name)){
+        while (!strcmp("\n", player1_name) || !strcmp("Computador\n", player1_name)){
             printf(BOLD(RED("\n\n\t\t\t\tNome inválido! Digite o nome novamente.\n")));
             fgets(player1_name, STR_SIZE, stdin);
 
         }
         
-        current_game.player_count = 2;
-        strcpy(current_game.player1, remove_new_line(player1_name));
-        strcpy(current_game.player2,"Computador");
+        game->player_count = 2;
+        strcpy(game->player1, remove_new_line(player1_name));
+        strcpy(game->player2,"Computador");
 
-        empty_board(current_game.board);
+        empty_board(game->board);
         
-        current_game.last_play = 2;
+        game->last_play = 2;
             
     } else {
 
@@ -147,7 +150,7 @@ void new_game(){
         
         fgets(player1_name, STR_SIZE, stdin);
 
-        while (!strcmp("\n", player1_name)){
+        while (!strcmp("\n", player1_name) || !strcmp("Computador\n", player1_name)){
             printf(BOLD(RED("\n\n\t\t\t\tNome inválido! Digite o nome novamente.\n")));
             fgets(player1_name, STR_SIZE, stdin);
 
@@ -156,22 +159,29 @@ void new_game(){
         printf(BOLD(BLUE("\n\n\t\t1\t\tDigite o nome do jogador 2: ")));
         
         fgets(player2_name, STR_SIZE, stdin);
-        while (!strcmp("\n", player2_name)){
+
+        while (!strcmp("\n", player2_name) || !strcmp("Computador\n", player2_name) || !strcmp(player1_name, player2_name)){
             printf(BOLD(RED("\n\n\t\t\t\tNome inválido! Digite o nome novamente.\n")));
             fgets(player2_name, STR_SIZE, stdin);
 
         } 
 
 
-        current_game.player_count = 2;
-        strcpy(current_game.player1, remove_new_line(player1_name));
-        strcpy(current_game.player2, remove_new_line(player2_name));
-        empty_board(current_game.board);
-        current_game.last_play = 2;
+        game->player_count = 2;
+        strcpy(game->player1, remove_new_line(player1_name));
+        strcpy(game->player2, remove_new_line(player2_name));
+        empty_board(game->board);
+        game->last_play = 2;
     }
 
-
-    game_loop(current_game);
+    game_loop(game, gaming);
 
        
+}
+
+
+
+
+void continue_game(Game *game, int *gaming){
+    game_loop(game, gaming);
 }
