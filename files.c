@@ -31,7 +31,6 @@ void save_game(Game current_game, char file_name[]){
 
 
 
-
 Game read_save(char file_name[]){
 
     if (file_exists(file_name)){
@@ -126,5 +125,112 @@ Person* read_ranking(int *list_size){
     }
 
     return person_list;
+}
+
+
+void save_ranking(char *player_name, char op){
+
+
+    int list_size = 0;
+
+    Person *rank_list = read_ranking(&list_size);
+
+    Person *new_list = malloc ( (list_size + 1) * sizeof(Person));
+
+
+    sort_ranking(rank_list, list_size);
+
+    printf("\nSEGFAULT 1\n");
+
+    int is_on_rank = 0;
+
+    for( int i = 0; i < list_size; i++){
+        if(!strcmp(player_name, rank_list[i].name)){
+            is_on_rank++;
+            switch (op){
+                case 'w':
+                    rank_list[i].wins++;
+                    break;
+                case 'd':
+                    rank_list[i].draws++;
+                    break;
+                case 'l':
+                    rank_list[i].losses++;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+
+
+    if (!is_on_rank){
+        for( int i = 0; i < list_size; i++){
+            new_list[i] = rank_list[i];
+        }
+        list_size++;
+        Person new_entry;
+
+        strcpy(new_entry.name, player_name);
+        new_entry.wins = 0;
+        new_entry.draws = 0;
+        new_entry.losses = 0;
+        
+        switch (op){
+            case 'w':
+                new_entry.wins++;
+                break;
+            case 'd':
+                new_entry.draws++;
+                break;
+            case 'l':
+                new_entry.losses++;
+                break;
+            default:
+                break;
+        }
+
+        rank_list[list_size - 1] = new_entry;
+        sort_ranking(new_list, list_size);
+    }
+
+    for( int i = 0; i < list_size; i++){
+        if (!strcmp(new_list[i].name, "Computador")){
+            if ( i > 9){
+                new_list[9] = new_list[i];
+            }
+        }
+    }
+
+
+    if (list_size > 10){
+        list_size = 10;
+    }
+
+
+
+    printf("\nSEGFAULT 2\n");
+    printf("LIST SIZE ANTES DE ABRIR O RANK %d", list_size);
+    FILE *rank = fopen("velha.ini","w");
+
+    printf("\nSEGFAULT 3\n");
+    fprintf(rank,"%d", list_size);
+    printf("\nSEGFAULT 4\n");
+
+
+    for( int i = 0; i < list_size; i++){
+
+        fprintf(rank,"\n%s\n", new_list[i].name);
+        fprintf(rank,"%d %d %d\n", new_list[i].wins, new_list[i].draws, new_list[i].losses);
+    }
+
+    printf("\nSEGFAULT 5\n");
+
+
+    fclose(rank);
+    free(rank_list);
+    free(new_list);
 
 }
+

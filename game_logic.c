@@ -34,29 +34,43 @@ void game_loop(Game *game, int *gaming){
             break;
         }
 
+
         int winner  = check_winner(game);
         if (winner){
             print_game_table(*game);
             if(winner == 1){
 
                 printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player1);
+                save_ranking(game->player1, 'w');
+                save_ranking(game->player2, 'l');
+
 
             } else if ( winner == 2){
 
                 if (!strcmp(game->player2, "Computador")){
-
                     printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "O computador ganhou!");
+                    save_ranking(game->player2, 'w');
+                    save_ranking(game->player1, 'l');
+
+
                     *gaming = 0;
 
                 } else {
 
-                printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player1);
-                *gaming = 0;
+                    printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player2);
+                    *gaming = 0;
+                    save_ranking(game->player2, 'w');
+                    save_ranking(game->player1, 'l');
+
 
                 }
 
             } else if ( winner == 3){
                 printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Deu Velha!");
+                save_ranking(game->player1, 'd');
+                save_ranking(game->player2, 'd');
+
+
                 *gaming = 0;
             }
 

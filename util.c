@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "structs.h"
 
 
 int file_exists(const char * filename){
@@ -38,4 +39,37 @@ void empty_string(char* string){
     for ( int i = 0; i < str_len; i++){
         string[i] = '\0';
     }
+}
+
+
+void sort_ranking(Person* list, int list_size){
+
+    //sort wins
+    for (int i = 0; i < list_size; i++){
+        for (int j = 0; j < list_size; j++){
+            if (list[j].wins > list[i].wins){
+
+                Person tmp = list[i];
+                list[i] = list[j];
+                list[j] = tmp;
+            }
+        }
+    }
+
+    
+    //sort draws
+
+    for (int i = 0; i < list_size; i++){
+        for (int j = 0; j < list_size; j++){
+            if(list[j].wins == list[i].wins){
+                if (list[j].draws > list[i].draws){
+                    Person tmp = list[i];
+                    list[i] = list[j];
+                    list[j] = tmp;
+                }
+            }
+        }
+    }
+
+
 }
