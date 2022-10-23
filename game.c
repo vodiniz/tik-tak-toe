@@ -24,12 +24,18 @@ void run_game (){
             case 1:
                 new_game(&current_game, &gaming);
                 break;
-            case 2:
-                break;
 
+            case 2:
+
+                load_save(&current_game, &gaming);
+                break;
             case 3:
                 getchar();
+                if (gaming){
                 continue_game(&current_game, &gaming);
+                } else {
+                    printf(BOLD(RED("\n\t\t\t\t\tNão há jogo em andamento.")));   
+                }
                 break;
 
             case 4: 
@@ -52,9 +58,10 @@ void run_game (){
 int get_option(int gaming){
 
     int option = 10; // valor padrão para opção inválida.
-    char option_string[200];
+    char option_string[1000];
     printf("\n\t\t\t");
     scanf("%s", option_string);
+
 
     if(!strcmp("0", option_string)){
         option = 0;
@@ -71,6 +78,8 @@ int get_option(int gaming){
         }
     } else if (!strcmp("4", option_string)){
         option = 4;
+    } else {
+        printf(RED(BOLD("\n\t\t\t Comando inválido. Digite novamente.\n\n")));
     }
 
     return option;
@@ -102,13 +111,13 @@ void new_game(Game *game, int *gaming){
 
     int player_number;
     char player_number_string[STR_SIZE];
+
     printf(BLUE(BOLD("\t\t\t\tDigite o número de jogadores (1 ou 2): ")));
     scanf("%s", player_number_string);
     
     while (!(!strcmp("1", player_number_string) || !strcmp("2", player_number_string))){
         printf(BLUE(BOLD("\t\t\t\tNúmero inválido, digite novamente.\n")));
         scanf("%s", player_number_string);
-
     }
 
     if (!strcmp("1", player_number_string)){
@@ -156,7 +165,7 @@ void new_game(Game *game, int *gaming){
 
         }
 
-        printf(BOLD(BLUE("\n\n\t\t1\t\tDigite o nome do jogador 2: ")));
+        printf(BOLD(BLUE("\n\n\t\t\t\tDigite o nome do jogador 2: ")));
         
         fgets(player2_name, STR_SIZE, stdin);
 

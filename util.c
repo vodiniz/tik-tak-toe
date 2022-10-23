@@ -9,7 +9,6 @@ int file_exists(const char * filename){
         fclose(file);
         return 1;
     }
-
     return 0;
 }
 
@@ -24,8 +23,6 @@ void empty_board(char board[][3]){
 }
 
 
-
-
 char* remove_new_line(char *string){
 
     int str_len = strlen(string);
@@ -34,6 +31,7 @@ char* remove_new_line(char *string){
 
     return string;
 }
+
 
 void empty_string(char* string){
     int str_len = strlen(string);

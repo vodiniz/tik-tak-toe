@@ -6,6 +6,9 @@
 #include "game_logic.h"
 #include "display.h"
 #include "util.h"
+#include "files.h"
+#include "game.h"
+#include "bot.h"
 
 
 
@@ -19,52 +22,50 @@ void game_loop(Game *game, int *gaming){
 
         print_game_table(*game);
         
-        if (game->last_play == 2){
-            command = get_commands(*game);
-            
-            if (!strcmp("marcar", command.first_command)){
-                make_move(game, command);
-            } else if (!strcmp("salvar", command.first_command)){
-                ;
-            } else if (!strcmp("voltar", command.first_command)){
-                *gaming = 1;
-                break;
-            }
-
-        } else {
-            if (!strcmp(game->player2, "Computador")){
-                ;
-            } else {
-                command = get_commands(*game);
-            }
-
-            if (!strcmp("marcar", command.first_command)){
-                make_move(game, command);
-            } else if (!strcmp("salvar", command.first_command)){
-                ;
-            } else if (!strcmp("voltar", command.first_command)){
-                *gaming = 1;
-                break;
-            }
+        command = get_commands(*game);
+        
+        if (!strcmp("marcar", command.first_command)){
+            make_move(game, command);
+        } else if (!strcmp("salvar", command.first_command)){
+            save_game(*game, command.second_command);
+            printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Jogo Salvo!");
+        } else if (!strcmp("voltar", command.first_command)){
+            *gaming = 1;
+            break;
         }
 
         int winner  = check_winner(game);
         if (winner){
             print_game_table(*game);
             if(winner == 1){
+
                 printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player1);
-            } else {
+
+            } else if ( winner == 2){
+
+                if (!strcmp(game->player2, "Computador")){
+
+                    printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "O computador ganhou!");
+                    *gaming = 0;
+
+                } else {
+
                 printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player1);
+                *gaming = 0;
+
+                }
+
+            } else if ( winner == 3){
+                printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Deu Velha!");
+                *gaming = 0;
             }
 
             printf(BOLD(BLUE("\n\t\t\t\t\tDigite qualquer tecla para continuar!\n")));
-            getchar();
+            getc(stdin);
             clear_screen();
             break;
         }
-
     }
-
 }
 
 
@@ -79,7 +80,12 @@ Command get_commands(Game game){
         if (game.last_play == 2){
             printf(ANSI_BOLD ANSI_COLOR_BLUE "\n\n\n\n\t\t\t\t %s, digite o comando: ", game.player1);
         } else {
-            printf(ANSI_BOLD ANSI_COLOR_BLUE "\n\n\n\n\t\t\t\t %s, digite o comando: ", game.player2);
+            if (!strcmp(game.player2, "Computador")){
+                current_command = bot_movement(&game);
+                return current_command;
+            }else {
+                printf(ANSI_BOLD ANSI_COLOR_BLUE "\n\n\n\n\t\t\t\t %s, digite o comando: ", game.player2);
+            }
         }
 
 
@@ -185,18 +191,13 @@ void make_move(Game *game, Command command){
 
     }else {
 
-        if (!strcmp(game->player2, "Computador")){
-            ;
+        if ( game->board[x][y] == 'X' || game->board[x][y] == 'O'){
+            printf(BOLD(RED("\n\t\t\t\t\tPosição já marcada")));
         } else {
-            
-            if ( game->board[x][y] == 'X' || game->board[x][y] == 'O'){
-                printf(BOLD(RED("\n\t\t\t\t\tPosição já marcada")));
-            } else {
-                game->board[x][y] = 'O';
-                game->last_play = 2;
-            }
-   
+            game->board[x][y] = 'O';
+            game->last_play = 2;
         }
+   
     }
 }
 
@@ -233,7 +234,7 @@ int check_winner(Game *game){
         for (int j = 0; j < 3; j++){
             if (game->board[j][i] == 'X'){
                 x_counter++;
-            } else if (game->board[i][j] == 'O'){
+            } else if (game->board[j][i] == 'O'){
                 o_counter++;
             }
         }
@@ -285,8 +286,42 @@ int check_winner(Game *game){
         return 2;
     }
 
+
+    //vendo se deu velha na ultima rodada
+    x_counter = 0;
+    o_counter  = 0;
+
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++){
+            if (game->board[i][j] == 'X'){
+                x_counter++;
+            } else if (game->board[i][j] == 'O'){
+                o_counter++;
+            }
+        }
+    }
+
+    if (x_counter + o_counter >= 9){
+        return 3;
+    }
     
     return 0;
 }
 
+void load_save(Game *game, int *gaming){
 
+    getchar();
+    char save_name[100];
+    printf(BOLD(BLUE("\n\n\t\t\t\tDigite o nome do arquivo para carregar o jogo.\n")));
+    fgets(save_name, STR_SIZE, stdin);
+    int len = strlen(save_name);
+    save_name[len - 1] = '\0';
+    Game tmp_game;
+    tmp_game = read_save(save_name);
+
+    if(tmp_game.player_count){
+        *game = tmp_game;
+        continue_game(game, gaming);
+    }
+
+}

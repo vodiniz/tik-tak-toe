@@ -13,8 +13,6 @@ typedef struct {
 } Game;
 
 
-
-
 typedef struct {
     char name[50];
     int wins;

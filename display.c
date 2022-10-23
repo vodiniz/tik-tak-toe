@@ -45,6 +45,7 @@ void display_options(int ongoing_game){
     }
     
     printf((BLUE(BOLD("\t\t\t4. Exibir o ranking.\n\n"))));
+    printf(GREEN(BOLD("\n\t\t\tDurante o jogo digite “voltar” para retornar ao menu.\n\n")));
 
 
 }

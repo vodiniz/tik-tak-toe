@@ -11,6 +11,10 @@
         "files.h": "c",
         "defines.h": "c",
         "structs.h": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "string.h": "c",
+        "stdlib.h": "c",
+        "random": "c",
+        "game.h": "c"
     }
 }

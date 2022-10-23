@@ -16,6 +16,9 @@ void save_game(Game current_game, char file_name[]){
     for ( int i = 0; i < 3; i++){
         for ( int j = 0; j < 3; j++){
             fprintf(save_file, "%c", current_game.board[i][j]);
+            if (j < 2){
+                fprintf(save_file," ");
+            }
         }
         fprintf(save_file, "\n");
 
@@ -30,7 +33,6 @@ void save_game(Game current_game, char file_name[]){
 
 
 Game read_save(char file_name[]){
-
 
     if (file_exists(file_name)){
 
@@ -48,11 +50,18 @@ Game read_save(char file_name[]){
             fscanf(save_file, "%s", save_game.player2);
         }
 
+        fgetc(save_file);
         for ( int i = 0; i < 3; i++){
             for ( int j = 0; j < 3; j++){
                 fscanf(save_file, "%c", &save_game.board[i][j]);
+                if ( j < 2){
+                    fgetc(save_file);
+                }
             }
+            fgetc(save_file);
         }
+
+
     
         fscanf(save_file, "%d", &save_game.last_play);
         fclose(save_file);
@@ -60,7 +69,7 @@ Game read_save(char file_name[]){
         return save_game;    
         
     } else {
-        printf("File doesn't exist\n");
+        printf(BOLD(RED("\n\n\t\t\t\tArquivo não existe. Tente novamente\n")));
         Game default_game = {
             0,
             "NULL",
