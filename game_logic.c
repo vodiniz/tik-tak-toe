@@ -49,6 +49,7 @@ void game_loop(Game *game, int *gaming){
 
                 if (!strcmp(game->player2, "Computador")){
                     printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "O computador ganhou!");
+                    
                     save_ranking(game->player2, 'w');
                     save_ranking(game->player1, 'l');
 

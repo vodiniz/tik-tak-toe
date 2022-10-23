@@ -132,17 +132,14 @@ void save_ranking(char *player_name, char op){
 
 
     int list_size = 0;
-
-    Person *rank_list = read_ranking(&list_size);
-
-    Person *new_list = malloc ( (list_size + 1) * sizeof(Person));
-
-
-    sort_ranking(rank_list, list_size);
-
-    printf("\nSEGFAULT 1\n");
+    int new_list_size = 0;
 
     int is_on_rank = 0;
+
+    Person *rank_list = read_ranking(&list_size);
+    new_list_size = list_size + 1;
+    Person *new_list = malloc ((new_list_size) * sizeof(Person));
+
 
     for( int i = 0; i < list_size; i++){
         if(!strcmp(player_name, rank_list[i].name)){
@@ -163,13 +160,14 @@ void save_ranking(char *player_name, char op){
         }
     }
 
+    sort_ranking(rank_list, list_size);
+
 
 
     if (!is_on_rank){
         for( int i = 0; i < list_size; i++){
             new_list[i] = rank_list[i];
         }
-        list_size++;
         Person new_entry;
 
         strcpy(new_entry.name, player_name);
@@ -191,41 +189,55 @@ void save_ranking(char *player_name, char op){
                 break;
         }
 
-        rank_list[list_size - 1] = new_entry;
-        sort_ranking(new_list, list_size);
+        new_list[new_list_size - 1] = new_entry;
     }
+
+    sort_ranking(new_list, new_list_size);
+
 
     for( int i = 0; i < list_size; i++){
         if (!strcmp(new_list[i].name, "Computador")){
             if ( i > 9){
                 new_list[9] = new_list[i];
+                sort_ranking(new_list, new_list_size);
             }
         }
     }
 
+    if(is_on_rank){
+        print_simple_ranking(rank_list, list_size);
+    } else {
+        print_simple_ranking(new_list, new_list_size);
+    }
+    
 
     if (list_size > 10){
         list_size = 10;
+    } 
+
+    if (new_list_size > 10){
+        new_list_size = 10;
+    } 
+
+    FILE *rank = fopen("velha.ini","w"); 
+
+
+    if(is_on_rank){
+
+        fprintf(rank, "%d", list_size);
+        for( int i = 0; i < list_size; i++){
+            fprintf(rank,"\n%s\n", rank_list[i].name);
+            fprintf(rank,"%d %d %d", rank_list[i].wins, rank_list[i].draws, rank_list[i].losses);
+        }
+
+    } else {
+        fprintf(rank, "%d", new_list_size);
+        
+        for( int i = 0; i < new_list_size; i++){
+            fprintf(rank,"\n%s\n", new_list[i].name);
+            fprintf(rank,"%d %d %d", new_list[i].wins, new_list[i].draws, new_list[i].losses);       
+        }
     }
-
-
-
-    printf("\nSEGFAULT 2\n");
-    printf("LIST SIZE ANTES DE ABRIR O RANK %d", list_size);
-    FILE *rank = fopen("velha.ini","w");
-
-    printf("\nSEGFAULT 3\n");
-    fprintf(rank,"%d", list_size);
-    printf("\nSEGFAULT 4\n");
-
-
-    for( int i = 0; i < list_size; i++){
-
-        fprintf(rank,"\n%s\n", new_list[i].name);
-        fprintf(rank,"%d %d %d\n", new_list[i].wins, new_list[i].draws, new_list[i].losses);
-    }
-
-    printf("\nSEGFAULT 5\n");
 
 
     fclose(rank);

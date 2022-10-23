@@ -9,6 +9,7 @@ char* remove_new_line(char *string);
 void empty_board(char board[][3]);
 void empty_string(char* string);
 void sort_ranking(Person* list, int list_size);
+void print_simple_ranking(Person* list, int list_size);
 
 
 #endif

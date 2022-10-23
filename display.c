@@ -6,6 +6,7 @@
 #include "structs.h"
 #include "display.h"
 #include "files.h"
+#include <math.h>
 
 
 
@@ -103,7 +104,6 @@ void print_table_horizontal_lines(){
 void print_person_table(int n_lines, Person *players){
 
     
-
     printf("%*c" RED(BOLD(TAB_VER)), 54, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 20, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 16, ' ');
@@ -119,9 +119,9 @@ void print_person_table(int n_lines, Person *players){
         printf("\n");
         printf("%50d.   "RED(BOLD(TAB_VER)), i+1);
 
-        printf("%*c", (21 - name_size)/2, ' ');
+        printf("%*c", (int)ceil((double) (20 - name_size)/2), ' ');
         printf("%s", players[i].name);
-        printf("%*c", (21 - name_size)/2, ' ');
+        printf("%*c", (int)ceil((double)(20 - name_size))/2, ' ');
         printf(RED(BOLD(TAB_VER)));
 
         if (players[i].wins > 9){

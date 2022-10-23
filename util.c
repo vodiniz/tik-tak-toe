@@ -47,7 +47,7 @@ void sort_ranking(Person* list, int list_size){
     //sort wins
     for (int i = 0; i < list_size; i++){
         for (int j = 0; j < list_size; j++){
-            if (list[j].wins > list[i].wins){
+            if (list[j].wins < list[i].wins){
 
                 Person tmp = list[i];
                 list[i] = list[j];
@@ -56,13 +56,12 @@ void sort_ranking(Person* list, int list_size){
         }
     }
 
-    
     //sort draws
 
     for (int i = 0; i < list_size; i++){
         for (int j = 0; j < list_size; j++){
             if(list[j].wins == list[i].wins){
-                if (list[j].draws > list[i].draws){
+                if (list[j].draws < list[i].draws){
                     Person tmp = list[i];
                     list[i] = list[j];
                     list[j] = tmp;
@@ -70,6 +69,14 @@ void sort_ranking(Person* list, int list_size){
             }
         }
     }
+}
 
 
+void print_simple_ranking(Person* list, int list_size){
+
+    printf("\n-------RANK SIMPLES--------\n");
+    for (int i = 0; i < list_size; i++){
+        printf("\n|%s|   |%d %d %d|",list[i].name, list[i].wins, list[i].draws, list[i].losses);
+    }
+    printf("\n---------------\n");
 }
