@@ -3,6 +3,8 @@
 #include "structs.h"
 
 
+
+//check file exists return 1 if so
 int file_exists(const char * filename){
     FILE *file;
     if ((file = fopen(filename, "r"))){
@@ -14,6 +16,8 @@ int file_exists(const char * filename){
 }
 
 
+
+//fill board with -
 void empty_board(char board[][3]){
 
     for( int i = 0; i < 3; i++){
@@ -24,6 +28,7 @@ void empty_board(char board[][3]){
 }
 
 
+//change string last position from \n to \0
 char* remove_new_line(char *string){
 
     int str_len = strlen(string);
@@ -34,6 +39,7 @@ char* remove_new_line(char *string){
 }
 
 
+//fill string with \0
 void empty_string(char* string){
     int str_len = strlen(string);
     for ( int i = 0; i < str_len; i++){
@@ -42,6 +48,7 @@ void empty_string(char* string){
 }
 
 
+//simple sorting of ranking based on wins and then draws
 void sort_ranking(Person* list, int list_size){
 
     //sort wins
@@ -72,6 +79,7 @@ void sort_ranking(Person* list, int list_size){
 }
 
 
+//simple ranking printing for debbuging
 void print_simple_ranking(Person* list, int list_size){
 
     printf("\n-------RANK SIMPLES--------\n");

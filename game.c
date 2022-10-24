@@ -8,6 +8,8 @@
 #include "structs.h"
 
 
+
+//call game library from main
 void run_game (){
 
     int gaming = 0;
@@ -55,6 +57,7 @@ void run_game (){
 
 
 
+//get valid option
 int get_option(int gaming){
 
     int option = 10; // valor padrão para opção inválida.

@@ -6,6 +6,8 @@
 #include "structs.h"
 
 
+
+//save game on .txt file
 void save_game(Game current_game, char file_name[]){
 
     FILE *save_file = fopen(file_name, "w");
@@ -31,6 +33,7 @@ void save_game(Game current_game, char file_name[]){
 
 
 
+//load save from .txt file
 Game read_save(char file_name[]){
 
     if (file_exists(file_name)){
@@ -40,16 +43,19 @@ Game read_save(char file_name[]){
         Game save_game;
 
         fscanf(save_file, "%d", &save_game.player_count);
-        
+        fgetc(save_file);
         if(save_game.player_count == 1){
-            fscanf(save_file, "%s", save_game.player1);
+            fgets(save_game.player1, STR_SIZE, save_file);
             save_game.player2[0] = ' ';
         } else {
-            fscanf(save_file, "%s", save_game.player1);
-            fscanf(save_file, "%s", save_game.player2);
+            fgets(save_game.player1, STR_SIZE, save_file);
+            save_game.player1[strlen(save_game.player1) - 1] = '\0';
+
+            fgets(save_game.player2, STR_SIZE, save_file);
+            save_game.player2[strlen(save_game.player2) - 1] = '\0';
+
         }
 
-        fgetc(save_file);
         for ( int i = 0; i < 3; i++){
             for ( int j = 0; j < 3; j++){
                 fscanf(save_file, "%c", &save_game.board[i][j]);
@@ -90,6 +96,7 @@ Game read_save(char file_name[]){
 
 
 
+//read ranking from file and return Person list
 Person* read_ranking(int *list_size){
 
     Person *person_list;
@@ -128,6 +135,8 @@ Person* read_ranking(int *list_size){
 }
 
 
+
+//write Person list on velha.ini file
 void save_ranking(char *player_name, char op){
 
 
@@ -198,18 +207,11 @@ void save_ranking(char *player_name, char op){
     for( int i = 0; i < list_size; i++){
         if (!strcmp(new_list[i].name, "Computador")){
             if ( i > 9){
-                new_list[9] = new_list[i];
                 sort_ranking(new_list, new_list_size);
+                new_list[9] = new_list[i];
             }
         }
     }
-
-    if(is_on_rank){
-        print_simple_ranking(rank_list, list_size);
-    } else {
-        print_simple_ranking(new_list, new_list_size);
-    }
-    
 
     if (list_size > 10){
         list_size = 10;

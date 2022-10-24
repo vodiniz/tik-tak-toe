@@ -4,6 +4,7 @@
 #define STRUCTS_H_
 
 
+//game struct for game control
 typedef struct {
     int player_count;
     char player1[STR_SIZE];
@@ -13,6 +14,7 @@ typedef struct {
 } Game;
 
 
+//person struct for ranking control
 typedef struct {
     char name[50];
     int wins;
@@ -20,6 +22,8 @@ typedef struct {
     int draws;
 } Person;
 
+
+//command struct for validating commands
 typedef struct {
     char first_command[STR_SIZE];
     char second_command[STR_SIZE];

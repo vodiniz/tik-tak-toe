@@ -12,6 +12,7 @@
 
 
 
+//main game loop
 void game_loop(Game *game, int *gaming){
 
     int running = 1;
@@ -75,15 +76,17 @@ void game_loop(Game *game, int *gaming){
                 *gaming = 0;
             }
 
+
+            show_ranking(*game);
             printf(BOLD(BLUE("\n\t\t\t\t\tDigite qualquer tecla para continuar!\n")));
             getc(stdin);
-            clear_screen();
             break;
         }
     }
 }
 
 
+//validate and return player command or bot movement in case of vs bot
 Command get_commands(Game game){
 
     char command[3 * STR_SIZE];
@@ -131,7 +134,7 @@ Command get_commands(Game game){
             second_command_counter++;
         }
 
-        current_command.second_command[str_len - second_command_index - 1] = '\0'; // TOMAR CUIDADO PODE DAR MERDA
+        current_command.second_command[str_len - second_command_index - 1] = '\0';
 
 
         if (!strcmp(current_command.first_command, "marcar")){
@@ -154,7 +157,7 @@ Command get_commands(Game game){
                 !strcmp(current_command.second_command, "32") ||
                 !strcmp(current_command.second_command, "33"))){
                 
-                invalid_command++; // somando 1 aqui
+                invalid_command++;
 
                 }
                 
@@ -190,6 +193,7 @@ Command get_commands(Game game){
     
 
 
+//after validation place piece on board
 void make_move(Game *game, Command command){
 
     int x = command.second_command[0] - 49;
@@ -218,7 +222,7 @@ void make_move(Game *game, Command command){
 
 
 
-
+//check winner or draw on game loop
 int check_winner(Game *game){
     
     int x_counter = 0;
@@ -323,6 +327,8 @@ int check_winner(Game *game){
     return 0;
 }
 
+
+//load save
 void load_save(Game *game, int *gaming){
 
     getchar();

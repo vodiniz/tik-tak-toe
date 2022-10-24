@@ -10,12 +10,13 @@
 
 
 
+//clear screen with regex
 void clear_screen(){
     printf("\e[1;1H\e[2J");
 }
 
 
-
+//game initial art
 void display_game_name(){
     
     clear_screen();
@@ -33,6 +34,7 @@ void display_game_name(){
 }
 
 
+//display game options
 void display_options(int ongoing_game){
 
     printf("\n\n\n\n\n");
@@ -51,18 +53,20 @@ void display_options(int ongoing_game){
 
 }
 
+//print invalid option
 void invalid_option(){
     printf("\n\n");
     printf((BLUE(BOLD("\t\t\tOPÇÃO INVÁLIDA.\n\n"))));
 }
 
+//repeat same string n times
 void print_n_times(int n, char string[]){
     for (int i = 0; i < n; i++){
         printf("%s", string);
     }
 }
 
-
+//print empty spaces inside table line
 void print_table_space_line(){
     printf("\t\t\t\t\t\t\t ");
     printf("%*c" RED(BOLD(TAB_VER)), 57, ' ');
@@ -73,6 +77,8 @@ void print_table_space_line(){
 
 }
 
+
+//print table with horizontal lines
 void print_table_horizontal_lines(){
 
     printf("\n\t\t\t\t\t\t");
@@ -101,6 +107,8 @@ void print_table_horizontal_lines(){
     
 }
 
+
+//printf persone name inside table
 void print_person_table(int n_lines, Person *players){
 
     
@@ -179,6 +187,7 @@ void print_person_table(int n_lines, Person *players){
 
 
 
+//print ranking art
 void print_ranking_title(){
     printf(MAGENTA(BOLD("\t\t\t\t\t\t\t██████   █████  ███    ██ ██   ██ ██ ███    ██  ██████  \n")));
     printf(MAGENTA(BOLD("\t\t\t\t\t\t\t██   ██ ██   ██ ████   ██ ██  ██  ██ ████   ██ ██       \n")));
@@ -190,6 +199,7 @@ void print_ranking_title(){
 }
 
 
+//main show ranking function
 void show_ranking(){
 
 
@@ -257,6 +267,8 @@ void show_ranking(){
 
 }
 
+
+//print X or O on choosen color
 char* player_char_color(char letter){
 
     if (letter == '-'){
@@ -271,6 +283,7 @@ char* player_char_color(char letter){
 
 
 
+//print game_table
 void print_game_table(Game game){
 
     printf("\n\n\n\n\n\n\n");
