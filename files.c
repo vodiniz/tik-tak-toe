@@ -100,6 +100,7 @@ Game read_save(char file_name[]){
 Person* read_ranking(int *list_size){
 
     Person *person_list;
+    *list_size = 0;
 
     if (file_exists(RANKING_FILE)){
 
@@ -129,6 +130,9 @@ Person* read_ranking(int *list_size){
         //printf("NOME = %s\n", ranking_list[4].name);
 
         fclose(ranking_file);
+    } else {
+        printf("ARQUIVO NÃO EXISTE!");
+        person_list = malloc ( 1 * sizeof(Person));
     }
 
     return person_list;
@@ -171,12 +175,11 @@ void save_ranking(char *player_name, char op){
 
     sort_ranking(rank_list, list_size);
 
-
-
     if (!is_on_rank){
         for( int i = 0; i < list_size; i++){
             new_list[i] = rank_list[i];
         }
+        
         Person new_entry;
 
         strcpy(new_entry.name, player_name);
@@ -243,7 +246,7 @@ void save_ranking(char *player_name, char op){
 
 
     fclose(rank);
-    free(rank_list);
+    free(rank_list); //free erro
     free(new_list);
 
 }

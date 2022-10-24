@@ -41,7 +41,7 @@ void game_loop(Game *game, int *gaming){
             print_game_table(*game);
             if(winner == 1){
 
-                printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player1);
+                printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!\n",game->player1);
                 save_ranking(game->player1, 'w');
                 save_ranking(game->player2, 'l');
 
@@ -49,7 +49,7 @@ void game_loop(Game *game, int *gaming){
             } else if ( winner == 2){
 
                 if (!strcmp(game->player2, "Computador")){
-                    printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "O computador ganhou!");
+                    printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "O computador ganhou!\n");
                     
                     save_ranking(game->player2, 'w');
                     save_ranking(game->player1, 'l');
@@ -59,7 +59,7 @@ void game_loop(Game *game, int *gaming){
 
                 } else {
 
-                    printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!",game->player2);
+                    printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Parabéns %s, você ganhou!\n",game->player2);
                     *gaming = 0;
                     save_ranking(game->player2, 'w');
                     save_ranking(game->player1, 'l');
@@ -68,7 +68,7 @@ void game_loop(Game *game, int *gaming){
                 }
 
             } else if ( winner == 3){
-                printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Deu Velha!");
+                printf("\n\t\t\t\t\t"ANSI_BOLD ANSI_COLOR_RED "Deu Velha\n!");
                 save_ranking(game->player1, 'd');
                 save_ranking(game->player2, 'd');
 

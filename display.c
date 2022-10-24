@@ -68,8 +68,8 @@ void print_n_times(int n, char string[]){
 
 //print empty spaces inside table line
 void print_table_space_line(){
-    printf("\t\t\t\t\t\t\t ");
-    printf("%*c" RED(BOLD(TAB_VER)), 57, ' ');
+    printf("\t\t\t\t\t\t");
+    printf("%*c" RED(BOLD(TAB_VER)), 6, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 20, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 16, ' ');
     printf("%*c" RED(BOLD(TAB_VER)), 15, ' ');
@@ -104,6 +104,8 @@ void print_table_horizontal_lines(){
     printf(RED(BOLD(TAB_MJ)));
 
     print_n_times(6, RED(BOLD(TAB_HOR)));
+    printf("\n");
+
     
 }
 
@@ -173,8 +175,9 @@ void print_person_table(int n_lines, Person *players){
             printf("%d", players[i].losses);
             printf("%*c", 8 , ' ');
         }
+        
         printf(RED(BOLD(TAB_VER)));
-
+        printf("\n");
         printf("    ");
         print_table_space_line();
         print_table_horizontal_lines();
