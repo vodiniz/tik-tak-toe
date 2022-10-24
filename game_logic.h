@@ -1,3 +1,7 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
+
 #ifndef GAME_LOGIC_H_
 #define GAME_LOGIC_H_
 

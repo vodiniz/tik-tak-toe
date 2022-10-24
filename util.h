@@ -1,3 +1,6 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
 
 #ifndef UTIL_H_
 #define UTIL_H_

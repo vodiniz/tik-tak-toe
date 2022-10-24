@@ -1,3 +1,7 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -131,7 +135,7 @@ Person* read_ranking(int *list_size){
 
         fclose(ranking_file);
     } else {
-        printf("ARQUIVO NÃO EXISTE!");
+        printf(RED(BOLD("ARQUIVO NÃO EXISTE!\n")));
         person_list = malloc ( 1 * sizeof(Person));
     }
 

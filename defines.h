@@ -1,3 +1,7 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
+
 #ifndef DEFINE_H_
 #define DEFINE_H_
 

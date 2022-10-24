@@ -1,3 +1,7 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

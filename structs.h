@@ -1,3 +1,7 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
+
 #include "defines.h"
 
 #ifndef STRUCTS_H_

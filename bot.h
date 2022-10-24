@@ -1,3 +1,6 @@
+//Vitor Oliveira Diniz
+//22.1.4107
+
 #include "structs.h"
 
 #ifndef BOT_H_
