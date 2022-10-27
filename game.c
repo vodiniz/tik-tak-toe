@@ -151,7 +151,8 @@ void new_game(Game *game, int *gaming){
         }
         
         game->player_count = 2;
-        strcpy(game->player1, remove_new_line(player1_name));
+        remove_new_line(player1_name);
+        strcpy(game->player1, player1_name);
         strcpy(game->player2,"Computador");
 
         empty_board(game->board);
@@ -184,8 +185,10 @@ void new_game(Game *game, int *gaming){
 
 
         game->player_count = 2;
-        strcpy(game->player1, remove_new_line(player1_name));
-        strcpy(game->player2, remove_new_line(player2_name));
+        remove_new_line(player1_name);
+        remove_new_line(player2_name);
+        strcpy(game->player1, player1_name);
+        strcpy(game->player2, player2_name);
         empty_board(game->board);
         game->last_play = 2;
     }

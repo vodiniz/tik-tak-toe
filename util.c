@@ -33,13 +33,11 @@ void empty_board(char board[][3]){
 
 
 //change string last position from \n to \0
-char* remove_new_line(char *string){
+void remove_new_line(char *string){
 
     int str_len = strlen(string);
-
     string[str_len - 1] = '\0';
 
-    return string;
 }
 
 

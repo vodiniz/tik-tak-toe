@@ -113,7 +113,7 @@ Command get_commands(Game game){
 
         invalid_command = 0;
         fgets(command, 3*STR_SIZE, stdin);
-        strcpy(command, remove_new_line(command));
+        remove_new_line(command);
 
         int str_len = strlen(command);
         int second_command_index = 0;
